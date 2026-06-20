@@ -194,6 +194,31 @@
     .node .label{font-size:12px}#brand{left:20px;top:22px}#clock{right:20px;top:24px}
     .scroll-in{padding:40px 28px}#panelKanji{font-size:48px}
   }
+
+
+/* ---------- GAMEPLAY HUD / MVP layer ---------- */
+#gameHud{position:fixed;left:28px;bottom:28px;z-index:35;width:min(390px,calc(100vw - 56px));
+  display:grid;gap:12px;pointer-events:auto;font-family:var(--sans)}
+.game-card{background:linear-gradient(145deg,rgba(12,11,18,.82),rgba(20,18,28,.72));
+  border:1px solid rgba(201,162,39,.28);border-radius:18px;backdrop-filter:blur(12px);
+  box-shadow:0 24px 80px rgba(0,0,0,.35),inset 0 0 40px rgba(201,162,39,.03);overflow:hidden}
+.game-card-inner{padding:16px}.game-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.game-eyebrow{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(201,162,39,.75)}
+.game-title{font-family:var(--serif);font-size:18px;color:var(--pearl);margin-top:5px}.game-small{font-size:12px;line-height:1.55;color:rgba(244,236,216,.68)}
+.stat-strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(201,162,39,.15);margin-top:12px}
+.stat-strip div{padding:10px 8px;border-right:1px solid rgba(201,162,39,.12)}.stat-strip div:last-child{border-right:0}
+.stat-strip b{display:block;color:var(--gold-bright);font-size:15px}.stat-strip span{display:block;color:rgba(244,236,216,.48);font-size:9px;text-transform:uppercase;letter-spacing:.15em;margin-top:2px}
+.xpbar{height:7px;background:rgba(244,236,216,.08);border-radius:99px;overflow:hidden;margin-top:10px}.xpbar i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--jade),var(--gold-bright));box-shadow:0 0 18px rgba(231,199,90,.6);transition:width .7s ease}
+.quest-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.game-btn{border:1px solid rgba(201,162,39,.35);background:rgba(201,162,39,.09);color:var(--pearl);border-radius:999px;padding:9px 12px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.25s}
+.game-btn:hover{border-color:var(--gold-bright);background:rgba(201,162,39,.18);transform:translateY(-1px)}.game-btn.primary{background:linear-gradient(135deg,rgba(212,51,46,.9),rgba(157,107,255,.55));border-color:rgba(231,199,90,.42)}
+#trail{position:fixed;right:28px;top:92px;z-index:34;width:min(360px,calc(100vw - 56px));pointer-events:auto}.trail-list{display:grid;gap:8px;margin-top:12px}.trail-step{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;padding:10px;border:1px solid rgba(244,236,216,.08);border-radius:14px;background:rgba(255,255,255,.03)}
+.trail-orb{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:rgba(244,236,216,.08);color:rgba(244,236,216,.45);font-size:12px}.trail-step.done .trail-orb{background:var(--jade);color:#06100d;box-shadow:0 0 18px rgba(63,169,154,.55)}.trail-step.active{border-color:rgba(231,199,90,.45)}.trail-step.active .trail-orb{background:var(--gold-bright);color:#160f05;box-shadow:0 0 20px rgba(231,199,90,.6)}
+.trail-step strong{display:block;font-size:12px;color:var(--pearl)}.trail-step small{display:block;color:rgba(244,236,216,.48);font-size:10px;margin-top:2px}.trail-reward{font-size:10px;color:var(--gold);white-space:nowrap}
+#codex{position:fixed;right:28px;bottom:28px;z-index:34;width:min(360px,calc(100vw - 56px));max-height:36vh;overflow:auto;pointer-events:auto}.word-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.word{border:1px solid rgba(201,162,39,.18);border-radius:14px;padding:10px;background:rgba(0,0,0,.18);min-height:74px}.word.locked{filter:grayscale(1);opacity:.35}.word .hz{font-family:var(--serif);font-size:26px;color:var(--gold-bright)}.word .py{font-size:11px;color:rgba(244,236,216,.7)}.word .pt{font-size:10px;color:rgba(244,236,216,.45);margin-top:3px}
+#dialogueBox{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:45;width:min(720px,calc(100vw - 48px));display:none;pointer-events:auto}.portrait{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,var(--gold-bright),var(--vermilion));font-family:var(--serif);font-size:26px;color:#160f05;flex:0 0 auto}.dialogue-text{font-size:14px;line-height:1.7;color:rgba(244,236,216,.78);margin-top:4px}.choices{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.toast{position:fixed;left:50%;top:22px;transform:translateX(-50%) translateY(-20px);z-index:80;background:rgba(12,11,18,.92);border:1px solid rgba(231,199,90,.45);border-radius:999px;padding:12px 18px;color:var(--pearl);font-size:13px;opacity:0;pointer-events:none;transition:.35s;box-shadow:0 18px 60px rgba(0,0,0,.45)}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#gameToggle{position:fixed;left:28px;top:92px;z-index:36;border:1px solid rgba(201,162,39,.35);background:rgba(12,11,18,.55);color:var(--pearl);border-radius:999px;padding:10px 14px;backdrop-filter:blur(8px);cursor:pointer;letter-spacing:.12em;text-transform:uppercase;font-size:11px}
+@media(max-width:920px){#trail{display:none}#codex{display:none}#gameHud{bottom:18px;left:18px;width:calc(100vw - 36px)}#gameToggle{left:18px;top:78px}body.game-collapsed #gameHud{display:none}}
+
 </style>
 </head>
 <body>
@@ -329,6 +354,75 @@
     <path class="wave" d="M18.5 5.5c3 3 3 10 0 13" stroke-linecap="round"/>
   </svg>
 </button>
+
+
+
+<!-- GAMEPLAY MVP LAYER -->
+<button id="gameToggle">HUD</button>
+<section id="gameHud" aria-label="HUD de jogo">
+  <div class="game-card">
+    <div class="game-card-inner">
+      <div class="game-row">
+        <div>
+          <div class="game-eyebrow">Reino 1 · Discípula Iniciante</div>
+          <div class="game-title">Academia do Punho Vivo</div>
+        </div>
+        <div class="portrait" title="Mascote espiritual">狐</div>
+      </div>
+      <div class="xpbar"><i id="xpFill"></i></div>
+      <div class="stat-strip">
+        <div><b id="hudXp">0</b><span>XP</span></div>
+        <div><b id="hudCoins">0</b><span>Moedas</span></div>
+        <div><b id="hudWords">0</b><span>Palavras</span></div>
+        <div><b id="hudStreak">1</b><span>Dias</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="game-card">
+    <div class="game-card-inner">
+      <div class="game-eyebrow">Missão atual</div>
+      <div class="game-title" id="questTitle">—</div>
+      <p class="game-small" id="questDescription"></p>
+      <div class="quest-actions">
+        <button class="game-btn primary" id="completeQuestBtn">Concluir missão</button>
+        <button class="game-btn" id="talkSifuBtn">Falar com Sifu</button>
+        <button class="game-btn" id="nextQuestBtn">Próxima missão</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="trail" class="game-card" aria-label="Trilha de aprendizagem">
+  <div class="game-card-inner">
+    <div class="game-eyebrow">Trilha marcial-linguística</div>
+    <div class="game-title">Caminho do Reino 1</div>
+    <div class="trail-list" id="trailList"></div>
+  </div>
+</section>
+
+<section id="codex" class="game-card" aria-label="Biblioteca de vocabulário">
+  <div class="game-card-inner">
+    <div class="game-eyebrow">Biblioteca viva</div>
+    <div class="game-title">Pergaminhos descobertos</div>
+    <div class="word-grid" id="wordGrid"></div>
+  </div>
+</section>
+
+<section id="dialogueBox" class="game-card" aria-label="Diálogo com o mestre">
+  <div class="game-card-inner">
+    <div class="game-row" style="align-items:flex-start;justify-content:flex-start">
+      <div class="portrait">师</div>
+      <div>
+        <div class="game-eyebrow">Sifu Chen</div>
+        <div class="dialogue-text" id="dialogueText"></div>
+        <div class="choices" id="dialogueChoices"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="toast" id="gameToast"></div>
+
 
 <!-- VEIL + PANEL -->
 <div id="veil"></div>
@@ -708,6 +802,100 @@ function crossingCrane(){
     {duration:14000,easing:"linear"}).onfinish=()=>c.remove();
   resetIdle();
 }
+
+
+
+/* ===================== GAMEPLAY MVP: quests, trail, vocabulary, save ===================== */
+const GAME_KEY = "matsuri-gameplay-v2";
+const VOCAB = [
+  {id:"nihao",hanzi:"你好",pinyin:"nǐ hǎo",pt:"olá",found:"Portão da Academia"},
+  {id:"shifu",hanzi:"师父",pinyin:"shīfu",pt:"mestre / sifu",found:"Salão do Mestre"},
+  {id:"gongfu",hanzi:"功夫",pinyin:"gōngfu",pt:"kung fu",found:"Chegada"},
+  {id:"quan",hanzi:"拳",pinyin:"quán",pt:"punho",found:"Primeiro Punho"},
+  {id:"da",hanzi:"打",pinyin:"dǎ",pt:"golpear",found:"Treino de soco"},
+  {id:"shou",hanzi:"手",pinyin:"shǒu",pt:"mão",found:"Guarda"},
+  {id:"jiao",hanzi:"脚",pinyin:"jiǎo",pt:"pé",found:"Base"},
+  {id:"qian",hanzi:"前",pinyin:"qián",pt:"frente",found:"Deslocamento"},
+  {id:"hou",hanzi:"后",pinyin:"hòu",pt:"trás",found:"Recuo"},
+  {id:"zuo",hanzi:"左",pinyin:"zuǒ",pt:"esquerda",found:"Bambu"},
+  {id:"you",hanzi:"右",pinyin:"yòu",pt:"direita",found:"Bambu"},
+  {id:"ti",hanzi:"踢",pinyin:"tī",pt:"chutar",found:"Primeiro chute"}
+];
+const QUESTS = [
+  {id:"gate",title:"Os Tons do Portão",description:"Cumprimente o guarda e reconheça 你好. Recompensa: 25 XP + 8 moedas.",xp:25,coins:8,words:["nihao","shifu"]},
+  {id:"punch",title:"O Primeiro Punho",description:"Faça 20 socos lentos com respiração. Recompensa: 拳 quán + 打 dǎ.",xp:35,coins:10,words:["quan","da","shou"]},
+  {id:"stance",title:"Raiz no Pátio",description:"Segure uma base confortável por 2 minutos. Recompensa: 脚 jiǎo, 前 qián e 后 hòu.",xp:40,coins:12,words:["jiao","qian","hou"]},
+  {id:"bamboo",title:"Bambu à Esquerda",description:"Escolha corretamente esquerda/direita no caminho: 左 e 右.",xp:30,coins:9,words:["zuo","you"]},
+  {id:"kick",title:"Primeiro Chute",description:"Execute 10 chutes baixos e controlados. Segurança primeiro. Recompensa: 踢 tī.",xp:30,coins:9,words:["ti"]}
+];
+const TRAIL = [
+  {id:"gate",name:"Entrar na academia",detail:"Saudações e respeito",reward:"你好"},
+  {id:"punch",name:"Primeiro punho",detail:"Soco + intenção",reward:"拳"},
+  {id:"stance",name:"Criar raiz",detail:"Base e direção",reward:"前/后"},
+  {id:"bamboo",name:"Ler o caminho",detail:"Esquerda e direita",reward:"左/右"},
+  {id:"kick",name:"Primeiro chute",detail:"Controle corporal",reward:"踢"}
+];
+function defaultGame(){return {xp:0,coins:0,streak:1,currentQuest:0,completed:[],words:["gongfu"],lastPlayed:new Date().toISOString()};}
+function loadGame(){try{return {...defaultGame(),...JSON.parse(localStorage.getItem(GAME_KEY)||"{}")} }catch{return defaultGame()}}
+function saveGame(){game.lastPlayed=new Date().toISOString();localStorage.setItem(GAME_KEY,JSON.stringify(game));}
+let game = loadGame();
+function toast(msg){const el=document.getElementById("gameToast"); if(!el) return; el.textContent=msg; el.classList.add("show"); setTimeout(()=>el.classList.remove("show"),2600);}
+function currentQuest(){return QUESTS[game.currentQuest % QUESTS.length];}
+function discover(ids){for(const id of ids){if(!game.words.includes(id))game.words.push(id);}}
+function renderGame(){
+  const q=currentQuest();
+  document.getElementById("hudXp").textContent=game.xp;
+  document.getElementById("hudCoins").textContent=game.coins;
+  document.getElementById("hudWords").textContent=game.words.length;
+  document.getElementById("hudStreak").textContent=game.streak;
+  document.getElementById("xpFill").style.width=Math.min(100, game.xp/200*100)+"%";
+  document.getElementById("questTitle").textContent=q.title;
+  document.getElementById("questDescription").textContent=q.description;
+  document.getElementById("trailList").innerHTML=TRAIL.map((s,i)=>{
+    const done=game.completed.includes(s.id), active=q.id===s.id;
+    return `<div class="trail-step ${done?'done':''} ${active?'active':''}"><div class="trail-orb">${done?'✓':i+1}</div><div><strong>${s.name}</strong><small>${s.detail}</small></div><div class="trail-reward">${s.reward}</div></div>`;
+  }).join("");
+  document.getElementById("wordGrid").innerHTML=VOCAB.map(w=>{
+    const ok=game.words.includes(w.id);
+    return `<div class="word ${ok?'':'locked'}"><div class="hz">${ok?w.hanzi:'？'}</div><div class="py">${ok?w.pinyin:'bloqueado'}</div><div class="pt">${ok?w.pt:'complete missões'}</div></div>`;
+  }).join("");
+}
+function completeCurrentQuest(){
+  const q=currentQuest();
+  if(game.completed.includes(q.id)){toast("Essa missão já foi concluída. Avance para a próxima.");return;}
+  game.xp+=q.xp; game.coins+=q.coins; game.completed.push(q.id); discover(q.words); saveGame(); renderGame();
+  toast(`Missão concluída: +${q.xp} XP, +${q.coins} moedas, vocabulário desbloqueado.`);
+  if(q.words.includes("quan")) openSifu("Bom. 拳 não é só punho. É intenção atravessando a forma. Agora repita: quán.");
+}
+function nextQuest(){game.currentQuest=(game.currentQuest+1)%QUESTS.length; saveGame(); renderGame(); toast("Nova missão selecionada.");}
+function openSifu(text){
+  const box=document.getElementById("dialogueBox"), txt=document.getElementById("dialogueText"), choices=document.getElementById("dialogueChoices");
+  txt.textContent=text || "Discípula, o caminho é simples: ouvir, repetir, mover e lembrar. Escolha seu treino.";
+  choices.innerHTML=`<button class="game-btn primary" id="choicePractice">Treinar agora</button><button class="game-btn" id="choiceWord">Perguntar palavra</button><button class="game-btn" id="choiceClose">Fechar</button>`;
+  box.style.display="block";
+  document.getElementById("choicePractice").onclick=()=>{completeCurrentQuest();};
+  document.getElementById("choiceWord").onclick=()=>{const w=VOCAB.find(v=>game.words.includes(v.id))||VOCAB[0]; txt.textContent=`Hoje sua palavra viva é ${w.hanzi} (${w.pinyin}) — ${w.pt}. Ela apareceu em: ${w.found}.`;};
+  document.getElementById("choiceClose").onclick=()=>{box.style.display="none";};
+}
+document.getElementById("completeQuestBtn")?.addEventListener("click",completeCurrentQuest);
+document.getElementById("nextQuestBtn")?.addEventListener("click",nextQuest);
+document.getElementById("talkSifuBtn")?.addEventListener("click",()=>openSifu());
+document.getElementById("gameToggle")?.addEventListener("click",()=>document.body.classList.toggle("game-collapsed"));
+// Transformar estrelas abstratas em portais de gameplay também
+setTimeout(()=>{
+  const gameplayPanels = [
+    {kanji:"任",jp:"Missões",sub:"treino",eye:"missões · 任務",body:["Aqui começa a jogabilidade: cada missão dá XP, moedas e palavras vivas.","Use o painel no canto inferior esquerdo para concluir missões e avançar na trilha."]},
+    {kanji:"路",jp:"Trilha",sub:"progressão",eye:"trilha · 路",body:["A trilha no canto direito mostra o caminho do Reino 1.","Cada etapa conecta Mandarim e Choy Lay Fut: saudação, punho, base, direção e chute."]},
+    {kanji:"书",jp:"Biblioteca",sub:"vocabulário",eye:"biblioteca · 书",body:["As palavras desbloqueadas aparecem como pergaminhos vivos.","No MVP elas entram ao concluir missões. Depois entrarão por objetos, NPCs e técnicas."]},
+    {kanji:"师",jp:"Sifu",sub:"diálogo",eye:"mestre · 师父",body:["Fale com Sifu Chen pelo botão do HUD.","Ele guia o treino e explica palavras. Depois será substituído por IA com memória."]},
+    {kanji:"音",jp:"Trilha Sonora",sub:"ambiente",eye:"som · 音",body:["O botão circular no canto inferior direito liga a trilha ambiente gerada no navegador.","Por política do navegador, o áudio só começa após um clique."]}
+  ];
+  if(typeof NODES!=="undefined" && Array.isArray(NODES)){
+    for(let i=0;i<NODES.length && i<gameplayPanels.length;i++) Object.assign(NODES[i], gameplayPanels[i]);
+  }
+},100);
+renderGame();
+
 
 /* ===================== BOOT ===================== */
 addEventListener("resize",resize);
