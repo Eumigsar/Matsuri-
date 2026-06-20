@@ -91,3 +91,19 @@ e selos. Falar casual com um ancião "destoa" e o NPC reage.
 A voz usa as vozes chinesas (zh-CN) instaladas no sistema. Sem voz instalada, o
 tom sintetizado toca sozinho e o resto funciona. O áudio só inicia após o
 primeiro toque/clique (política dos navegadores).
+
+
+---
+
+## Complemento sugerido para o MVP
+Este pacote também inclui uma camada de produto para transformar o protótipo 3D em MVP jogável:
+
+- `docs/GDD.md` — visão de jogo e experiência
+- `docs/TDD.md` — arquitetura técnica recomendada
+- `docs/MVP_PLAN.md` — plano prático por fases
+- `docs/WORLD_MAP.md` — mapa de áreas e conteúdo
+- `src/data/` — vocabulário, missões, reinos, NPCs, locais, taolu e mascote
+- `src/systems/` — save local, progresso, missões, vocabulário e mascote
+- `src/types/domain.ts` — tipos centrais do domínio
+
+A recomendação é **manter Vite + Babylon.js** por enquanto e evoluir a experiência antes de adicionar backend.
