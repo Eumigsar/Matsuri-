@@ -223,6 +223,128 @@
 </head>
 <body>
 
+<!-- FORCED GAMEPLAY HUD — aparece mesmo se o resto do JS falhar -->
+<style id="forced-gameplay-style">
+  #forced-gameplay-root, #forced-gameplay-root * { box-sizing: border-box !important; }
+  #forced-gameplay-root {
+    position: fixed !important;
+    inset: auto auto 18px 18px !important;
+    z-index: 2147483000 !important;
+    width: min(430px, calc(100vw - 36px)) !important;
+    color: #f6ecd5 !important;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+    pointer-events: auto !important;
+    cursor: auto !important;
+  }
+  #forced-gameplay-root button { cursor: pointer !important; }
+  .fg-card {
+    background: linear-gradient(145deg, rgba(10,10,18,.96), rgba(38,24,35,.93)) !important;
+    border: 1px solid rgba(231,199,90,.55) !important;
+    border-radius: 18px !important;
+    box-shadow: 0 24px 90px rgba(0,0,0,.65), 0 0 34px rgba(231,199,90,.14) !important;
+    overflow: hidden !important;
+    backdrop-filter: blur(12px) !important;
+  }
+  .fg-pad { padding: 16px !important; }
+  .fg-eyebrow { color: #e7c75a !important; font-size: 10px !important; letter-spacing: .22em !important; text-transform: uppercase !important; }
+  .fg-title { margin-top: 5px !important; font: 700 20px Georgia, serif !important; color: #fff4dc !important; }
+  .fg-small { margin-top: 8px !important; color: rgba(246,236,213,.76) !important; font-size: 13px !important; line-height: 1.5 !important; }
+  .fg-stats { display: grid !important; grid-template-columns: repeat(4,1fr) !important; gap: 8px !important; margin-top: 13px !important; }
+  .fg-stat { background: rgba(255,255,255,.055) !important; border: 1px solid rgba(255,255,255,.08) !important; border-radius: 12px !important; padding: 9px !important; }
+  .fg-stat b { display:block !important; color:#e7c75a !important; font-size:17px !important; }
+  .fg-stat span { display:block !important; color:rgba(246,236,213,.55) !important; font-size:9px !important; text-transform:uppercase !important; letter-spacing:.12em !important; }
+  .fg-actions { display:flex !important; flex-wrap:wrap !important; gap:8px !important; margin-top:14px !important; }
+  .fg-btn { border:1px solid rgba(231,199,90,.45) !important; color:#fff4dc !important; background:rgba(231,199,90,.10) !important; border-radius:999px !important; padding:9px 12px !important; font-size:11px !important; text-transform:uppercase !important; letter-spacing:.08em !important; }
+  .fg-btn-primary { background: linear-gradient(135deg, #d4332e, #7d4cff) !important; }
+  #fg-words { display:grid !important; grid-template-columns: repeat(6,1fr) !important; gap:6px !important; margin-top:12px !important; }
+  .fg-word { text-align:center !important; border:1px solid rgba(231,199,90,.22) !important; border-radius:10px !important; padding:7px 4px !important; background:rgba(0,0,0,.22) !important; }
+  .fg-word strong { display:block !important; font:700 20px Georgia, serif !important; color:#e7c75a !important; }
+  .fg-word small { color:rgba(246,236,213,.62) !important; font-size:9px !important; }
+  #fg-trail {
+    position: fixed !important;
+    right: 18px !important;
+    top: 96px !important;
+    z-index: 2147483000 !important;
+    width: min(360px, calc(100vw - 36px)) !important;
+    pointer-events: auto !important;
+    cursor: auto !important;
+  }
+  .fg-step { display:grid !important; grid-template-columns:26px 1fr auto !important; gap:9px !important; align-items:center !important; padding:9px !important; border-radius:12px !important; background:rgba(255,255,255,.045) !important; border:1px solid rgba(255,255,255,.08) !important; margin-top:7px !important; }
+  .fg-step.done { border-color: rgba(63,169,154,.7) !important; }
+  .fg-orb { width:26px !important; height:26px !important; border-radius:50% !important; display:grid !important; place-items:center !important; background:#e7c75a !important; color:#120c04 !important; font-weight:800 !important; }
+  .fg-step.done .fg-orb { background:#3fa99a !important; }
+  .fg-step strong { display:block !important; font-size:12px !important; color:#fff4dc !important; }
+  .fg-step small { display:block !important; color:rgba(246,236,213,.55) !important; font-size:10px !important; }
+  .fg-reward { color:#e7c75a !important; font-size:11px !important; }
+  #fg-toast { position:fixed !important; left:50% !important; top:18px !important; transform:translateX(-50%) !important; z-index:2147483001 !important; background:rgba(10,10,18,.96) !important; border:1px solid rgba(231,199,90,.6) !important; color:#fff4dc !important; border-radius:999px !important; padding:12px 18px !important; opacity:0 !important; transition:.25s !important; pointer-events:none !important; }
+  #fg-toast.show { opacity:1 !important; }
+  @media(max-width:900px){ #fg-trail{display:none !important;} #forced-gameplay-root{bottom:12px !important; left:12px !important; width:calc(100vw - 24px) !important;} }
+</style>
+<div id="forced-gameplay-root">
+  <div class="fg-card">
+    <div class="fg-pad">
+      <div class="fg-eyebrow">MVP jogável · Reino 1</div>
+      <div class="fg-title">Missão: O Primeiro Punho</div>
+      <p class="fg-small" id="fg-mission">Treine 20 socos lentos. Ao concluir, você ganha XP, moedas e desbloqueia vocabulário vivo.</p>
+      <div class="fg-stats">
+        <div class="fg-stat"><b id="fg-xp">0</b><span>XP</span></div>
+        <div class="fg-stat"><b id="fg-coins">0</b><span>Moedas</span></div>
+        <div class="fg-stat"><b id="fg-count">1</b><span>Palavras</span></div>
+        <div class="fg-stat"><b>1</b><span>Dias</span></div>
+      </div>
+      <div class="fg-actions">
+        <button class="fg-btn fg-btn-primary" onclick="fgCompleteMission()">Concluir missão</button>
+        <button class="fg-btn" onclick="fgNextMission()">Próxima missão</button>
+        <button class="fg-btn" onclick="fgTalk()">Falar com Sifu</button>
+      </div>
+      <div id="fg-words"></div>
+    </div>
+  </div>
+</div>
+<div id="fg-trail" class="fg-card">
+  <div class="fg-pad">
+    <div class="fg-eyebrow">Trilha do Reino 1</div>
+    <div class="fg-title">Caminho marcial-linguístico</div>
+    <div id="fg-steps"></div>
+  </div>
+</div>
+<div id="fg-toast"></div>
+<script id="forced-gameplay-script">
+(function(){
+  const KEY='matsuri-forced-gameplay-v1';
+  const missions=[
+    {id:'punch',name:'O Primeiro Punho',desc:'Treine 20 socos lentos. Desbloqueia 拳 quán e 打 dǎ.',xp:35,coins:10,words:['功夫','拳','打']},
+    {id:'gate',name:'Os Tons do Portão',desc:'Cumprimente o guarda da academia. Desbloqueia 你好 e 师父.',xp:25,coins:8,words:['你好','师父']},
+    {id:'stance',name:'Raiz no Pátio',desc:'Segure uma base confortável por 2 minutos. Desbloqueia 脚, 前 e 后.',xp:40,coins:12,words:['脚','前','后']},
+    {id:'bamboo',name:'Caminho do Bambu',desc:'Reconheça esquerda e direita. Desbloqueia 左 e 右.',xp:30,coins:9,words:['左','右']},
+    {id:'kick',name:'Primeiro Chute',desc:'Faça 10 chutes baixos e controlados. Desbloqueia 踢.',xp:30,coins:9,words:['踢']}
+  ];
+  let state; try{state=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){state={}};
+  state={xp:0,coins:0,idx:0,done:[],words:['功夫'],...state};
+  function save(){localStorage.setItem(KEY,JSON.stringify(state));}
+  function toast(t){const el=document.getElementById('fg-toast'); if(!el) return; el.textContent=t; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),2600);}
+  function render(){
+    const m=missions[state.idx%missions.length];
+    document.querySelector('#forced-gameplay-root .fg-title').textContent='Missão: '+m.name;
+    document.getElementById('fg-mission').textContent=m.desc;
+    document.getElementById('fg-xp').textContent=state.xp;
+    document.getElementById('fg-coins').textContent=state.coins;
+    document.getElementById('fg-count').textContent=state.words.length;
+    document.getElementById('fg-words').innerHTML=state.words.slice(-6).map(w=>'<div class="fg-word"><strong>'+w+'</strong><small>vivo</small></div>').join('');
+    document.getElementById('fg-steps').innerHTML=missions.map((x,i)=>'<div class="fg-step '+(state.done.includes(x.id)?'done':'')+'"><div class="fg-orb">'+(state.done.includes(x.id)?'✓':i+1)+'</div><div><strong>'+x.name+'</strong><small>'+x.desc+'</small></div><div class="fg-reward">+'+x.xp+' XP</div></div>').join('');
+  }
+  window.fgCompleteMission=function(){
+    const m=missions[state.idx%missions.length];
+    if(!state.done.includes(m.id)){state.xp+=m.xp; state.coins+=m.coins; state.done.push(m.id); m.words.forEach(w=>{if(!state.words.includes(w))state.words.push(w)}); save(); render(); toast('Missão concluída: +'+m.xp+' XP, +'+m.coins+' moedas, palavras desbloqueadas.');}
+    else toast('Essa missão já foi concluída. Clique em Próxima missão.');
+  };
+  window.fgNextMission=function(){state.idx=(state.idx+1)%missions.length; save(); render(); toast('Nova missão selecionada.');};
+  window.fgTalk=function(){toast('Sifu Chen: Respire. 拳 quán é punho com intenção.');};
+  render();
+})();
+</script>
+
+
 <!-- LOADER -->
 <div id="loader">
   <div class="seal-load"><span>祭</span></div>
