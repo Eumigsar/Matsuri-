@@ -1,22 +1,22 @@
-# 祭 学院 — Matsuri Academy MVP Limpo
+# 祭 学院 — Matsuri Academy Exploração MVP
 
-Versão standalone e funcional para GitHub Pages.
+Versão standalone para GitHub Pages com:
 
-## Já inclui
+- jogador/aluna visível e controlável
+- caminhada por ambiente chinês 2D explorável
+- Sifus/NPCs visuais animados proceduralmente
+- áreas interativas: salão, pátio, biblioteca, jardim, bambuzal e portão
+- interação com E ou botão
+- missões conectadas a NPCs/áreas
+- XP, moedas, vocabulário e trilha
+- save local via localStorage
 
-- Visual funcionando sem arquivos externos
-- Fundo animado com partículas e pétalas
-- Academia/templo central
-- HUD de jogo
-- Missões com XP, moedas e recompensas
-- Trilha do Reino 1
-- Biblioteca viva de vocabulário
-- Diálogo com Sifu Chen
-- Save local via localStorage
-- Trilha sonora gerada no navegador
+## Controles
 
-## Como subir
+- WASD ou setas: andar
+- E: interagir
+- Mobile: botões virtuais
 
-Suba estes arquivos para a raiz do repositório. O mais importante é o `index.html`.
+## GitHub Pages
 
-Depois atualize o site com Ctrl+F5 ou abra em aba anônima.
+Suba `index.html`, `matsuri.html`, `.nojekyll`, README e docs na raiz.
